@@ -9,6 +9,7 @@ abstract interface class ImageItemRepository {
 class PixabayImageItemRepository implements ImageItemRepository {
   final _api = PixabayApi();
 
+  @override
   Future<List<ImageItem>> getImageItems(String query) async {
     final dto = await _api.getImagesResult(query);
 
