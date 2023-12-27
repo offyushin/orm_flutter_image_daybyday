@@ -28,11 +28,12 @@ class MainScreen extends StatelessWidget {
                   ),
                   hintText: '검색',
                   suffixIcon: const Icon(
-                      Icons.search,
+                    Icons.search,
                     color: Color(0xFF4FB6B2),
                   ),
                 ),
               ),
+              const SizedBox(height: 24),
               Expanded(
                 child: GridView.builder(
                   itemCount: 10,
