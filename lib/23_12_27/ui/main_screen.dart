@@ -13,18 +13,25 @@ class MainScreen extends StatelessWidget {
             children: [
               TextField(
                 decoration: InputDecoration(
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                      borderSide: const BorderSide(
-                        width: 2,
-                        color: Color(0xFF4FB6B2),
-                      ),
-                    ),
-                    enabledBorder: const OutlineInputBorder(
-                        borderSide: BorderSide(
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
+                    borderSide: const BorderSide(
                       width: 2,
                       color: Color(0xFF4FB6B2),
-                    ))),
+                    ),
+                  ),
+                  enabledBorder: const OutlineInputBorder(
+                    borderSide: BorderSide(
+                      width: 2,
+                      color: Color(0xFF4FB6B2),
+                    ),
+                  ),
+                  hintText: '검색',
+                  suffixIcon: const Icon(
+                      Icons.search,
+                    color: Color(0xFF4FB6B2),
+                  ),
+                ),
               ),
               Expanded(
                 child: GridView.builder(
