@@ -17,14 +17,22 @@ class MainScreen extends StatelessWidget {
               focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(32.0),
                 borderSide: const BorderSide(
-                  width: 3,
+                  width: 4,
                   color: Colors.green,
                 ),
               ),
-                  hintText: '검색하세요',
-                  suffixIcon: Icon(
-                      MingCute.search_2_fill,
-                  color: Colors.green,),
+              enabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(24.0),
+                borderSide: BorderSide(
+                  width: 5,
+                  color: Colors.green,
+                )
+              ),
+              hintText: '검색하세요',
+              suffixIcon: Icon(
+                MingCute.search_2_fill,
+                color: Colors.green,
+              ),
             )),
             Expanded(
               child: GridView.builder(
