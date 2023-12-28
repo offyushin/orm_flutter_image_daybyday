@@ -13,21 +13,10 @@ class MainScreen extends StatefulWidget {
 class _MainScreenState extends State<MainScreen> {
   final searchTextEditingController = TextEditingController();
 
-  final repository = PixabayImageItemRepository();
-
-  List<ImageItem> imageItems = [];
-  bool isLoading = false;
-
-  Future<void> searchImage(String query) async {
-    setState(() {
-      isLoading = true;
-    });
-
-    imageItems = await repository.getImageItems(query);
-
-    setState(() {
-      isLoading = false;
-    });
+  @override
+  void dispose() {
+    searchTextEditingController.dispose();
+    super.dispose();
   }
 
   @override
@@ -56,19 +45,23 @@ class _MainScreenState extends State<MainScreen> {
                   ),
                   hintText: '검색',
                   suffixIcon: IconButton(
-                    icon: const Icon(
-                      Icons.search,
-                      color: Color(0xFF4FB6B2),
-                    ),
-                    onPressed: () =>
-                        searchImage(searchTextEditingController.text),
-                  ),
+                      icon: const Icon(
+                        Icons.search,
+                        color: Color(0xFF4FB6B2),
+                      ),
+                      onPressed: () => setState(() {})),
                 ),
               ),
               const SizedBox(height: 24),
-              isLoading
-                  ? const Center(child: CircularProgressIndicator())
-                  : Expanded(
+              FutureBuilder<List<ImageItem>>(
+                  future: PixabayImageItemRepository()
+                      .getImageItems(searchTextEditingController.text),
+                  builder: (context, snapshot) {
+                    if (!snapshot.hasData) {
+                      return const CircularProgressIndicator();
+                    }
+                    final imageItems = snapshot.data!;
+                    return Expanded(
                       child: GridView.builder(
                         itemCount: imageItems.length,
                         itemBuilder: (context, index) {
@@ -82,7 +75,8 @@ class _MainScreenState extends State<MainScreen> {
                           mainAxisSpacing: 32,
                         ),
                       ),
-                    ),
+                    );
+                  }),
             ],
           ),
         ),
