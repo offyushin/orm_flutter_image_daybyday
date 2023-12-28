@@ -5,6 +5,26 @@ class MainScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Scaffold(
+      body: SafeArea(
+          child: Column(
+        children: [
+          TextField(),
+          Expanded(
+            child: GridView.builder(
+              itemCount: 10,
+              itemBuilder: (context, index) {
+                return Text('dddddddddddddddddddddd');
+              },
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 3,
+                crossAxisSpacing: 30,
+                mainAxisSpacing: 30,
+              ),
+            ),
+          )
+        ],
+      )),
+    );
   }
 }
