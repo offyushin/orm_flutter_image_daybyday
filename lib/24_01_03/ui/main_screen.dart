@@ -10,12 +10,19 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
+  final searchText = TextEditingController();
   final repository = ImageItemREpositoy();
   var imageItems = [];
 
   Future<void> searchImage(String query) async {
     imageItems = await repository.getImageItems(query);
     setState(() {});
+  }
+
+  @override
+  void dispose() {
+    searchText.dispose();
+    super.dispose();
   }
 
   @override
@@ -27,6 +34,7 @@ class _MainScreenState extends State<MainScreen> {
           child: Column(
             children: [
               TextField(
+                controller: searchText,
                 decoration: InputDecoration(
                   focusedBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10.0),
@@ -48,7 +56,7 @@ class _MainScreenState extends State<MainScreen> {
                       Icons.search,
                       color: Colors.black,
                     ),
-                    onPressed: () => searchImage('사과'),
+                    onPressed: () => searchImage(searchText.text),
                   ),
                 ),
               ),
