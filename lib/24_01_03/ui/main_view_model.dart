@@ -1,20 +1,25 @@
 import 'dart:async';
 
+import 'package:flutter/material.dart';
+
 import '../data/model/image_item.dart';
 import '../data/repository/image_item_repository.dart';
 
-final class MainViewModel {
+final class MainViewModel extends ChangeNotifier {
   final _repository = PixabayImageItemRepository();
   List<ImageItem> _imageItems = [];
 
   List<ImageItem> get imageItems => List.unmodifiable(_imageItems);
-  final _loadingController = StreamController<bool>();
-
-  Stream<bool> get isLoadingStream => _loadingController.stream;
+  bool _isLoading = false;
+  bool get isLoading => _isLoading;
 
   Future<void> searchImage(String query) async {
-    _loadingController.add(true);
+    _isLoading = true;
+    notifyListeners();
+
     _imageItems = await _repository.getImageItems(query);
-    _loadingController.add(false);
+
+    _isLoading = false;
+    notifyListeners();
   }
 }
