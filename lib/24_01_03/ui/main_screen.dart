@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_image_search_my_app/24_01_03/data/model/image_item.dart';
 import 'package:flutter_image_search_my_app/24_01_03/data/repository/image_item_repository.dart';
 import 'package:flutter_image_search_my_app/24_01_03/ui/widget/image_item_widget.dart';
 
@@ -12,11 +13,17 @@ class MainScreen extends StatefulWidget {
 class _MainScreenState extends State<MainScreen> {
   final searchText = TextEditingController();
   final repository = ImageItemREpositoy();
-  var imageItems = [];
+  List<ImageItem> imageItems = [];
+  bool isLoading = false;
 
   Future<void> searchImage(String query) async {
+    setState(() {
+      isLoading = true;
+    });
     imageItems = await repository.getImageItems(query);
-    setState(() {});
+    setState(() {
+      isLoading = false;
+    });
   }
 
   @override
@@ -63,17 +70,22 @@ class _MainScreenState extends State<MainScreen> {
               const SizedBox(
                 height: 24,
               ),
-              Expanded(
-                child: GridView.builder(
-                    itemCount: imageItems.length,
-                    gridDelegate:
-                        const SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 2),
-                    itemBuilder: (context, index) {
-                      final imageItem = imageItems[index];
-                      return ImageItemWidget(imageItem: imageItem);
-                    }),
-              ),
+              isLoading
+                  ? const Center(child: CircularProgressIndicator())
+                  : Expanded(
+                      child: GridView.builder(
+                          itemCount: imageItems.length,
+                          gridDelegate:
+                              const SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 2,
+                            crossAxisSpacing: 32,
+                            mainAxisSpacing: 32,
+                          ),
+                          itemBuilder: (context, index) {
+                            final imageItem = imageItems[index];
+                            return ImageItemWidget(imageItem: imageItem);
+                          }),
+                    ),
             ],
           ),
         ),
