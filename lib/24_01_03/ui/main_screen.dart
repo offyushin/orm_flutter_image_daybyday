@@ -22,6 +22,7 @@ class _MainScreenState extends State<MainScreen> {
   @override
   Widget build(BuildContext context) {
     final viewModel = context.watch<MainViewModel>();
+    final state = viewModel.state;
     return Scaffold(
       body: SafeArea(
         child: Padding(
@@ -60,13 +61,13 @@ class _MainScreenState extends State<MainScreen> {
               const SizedBox(
                 height: 24,
               ),
-              viewModel.isLoading
+              state.isLoading
                   ? const Center(
                       child: CircularProgressIndicator(),
                     )
                   : Expanded(
                       child: GridView.builder(
-                        itemCount: viewModel.imageItems.length,
+                        itemCount: state.imageItems.length,
                         gridDelegate:
                             const SliverGridDelegateWithFixedCrossAxisCount(
                           crossAxisCount: 2,
@@ -74,7 +75,7 @@ class _MainScreenState extends State<MainScreen> {
                           mainAxisSpacing: 32,
                         ),
                         itemBuilder: (context, index) {
-                          final imageItem = viewModel.imageItems[index];
+                          final imageItem = state.imageItems[index];
                           return ImageItemWidget(imageItem: imageItem);
                         },
                       ),
