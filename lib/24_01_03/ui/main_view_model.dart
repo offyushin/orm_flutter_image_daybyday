@@ -7,10 +7,9 @@ import 'package:flutter_image_search_my_app/24_01_03/main_state.dart';
 final class MainViewModel extends ChangeNotifier {
   final ImageItemRepository _repository;
 
-  Mainstate _state =
-      Mainstate(imageItems: List.unmodifiable([]), isLoading: false);
+  MainState _state = MainState();
 
-  Mainstate get state => _state;
+  MainState get state => _state;
 
   MainViewModel({required ImageItemRepository repository})
       : _repository = repository;
@@ -18,10 +17,11 @@ final class MainViewModel extends ChangeNotifier {
   Future<void> searchImage(String query) async {
     _state = state.copyWith(isLoading: true);
     notifyListeners();
+
+    final results = (await _repository.getImageItems(query)).take(20).toList();
     _state = state.copyWith(
       isLoading: false,
-      imageItems: List.unmodifiable(
-          (await _repository.getImageItems(query)).take(20).toList()),
+      imageItems: results,
     );
     notifyListeners();
   }
