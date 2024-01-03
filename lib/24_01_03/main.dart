@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_image_search_my_app/24_01_03/data/di/di_setup.dart';
+import 'package:flutter_image_search_my_app/routes.dart';
+
 
 
 void main() {
@@ -13,6 +15,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(
+      routerConfig: router,
       title: 'Flutter Demo',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
