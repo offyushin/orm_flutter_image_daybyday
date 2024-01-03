@@ -23,7 +23,7 @@ final class MainViewModel extends ChangeNotifier {
     _isLoading = true;
     notifyListeners();
 
-    _imageItems = (await _repository.getImageItems(query)).take(3).toList();
+    _imageItems = (await _repository.getImageItems(query)).take(20).toList();
 
     _isLoading = false;
     notifyListeners();
