@@ -52,38 +52,39 @@ class _MainScreenState extends State<MainScreen> {
                       Icons.search,
                       color: Colors.black,
                     ),
-                    onPressed: () async {
-                      setState(() {
-                        viewModel.isLoading = true;
-                      });
-                      await viewModel.searchImage(searchText.text);
-
-                      setState(() {
-                        viewModel.isLoading = false;
-                      });
-                    },
+                    onPressed: () async {},
                   ),
                 ),
               ),
               const SizedBox(
                 height: 24,
               ),
-              viewModel.isLoading
-                  ? const Center(child: CircularProgressIndicator())
-                  : Expanded(
-                      child: GridView.builder(
-                          itemCount: viewModel.imageItems.length,
-                          gridDelegate:
-                              const SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 2,
-                            crossAxisSpacing: 32,
-                            mainAxisSpacing: 32,
-                          ),
-                          itemBuilder: (context, index) {
-                            final imageItem = viewModel.imageItems[index];
-                            return ImageItemWidget(imageItem: imageItem);
-                          }),
+              StreamBuilder<bool>(
+                initialData: false,
+                stream: viewModel.isLoadingStream,
+                builder: (context, snapshot) {
+                  if (snapshot.data! == true) {
+                    return const Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  }
+                  return Expanded(
+                    child: GridView.builder(
+                      itemCount: viewModel.imageItems.length,
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        crossAxisSpacing: 32,
+                        mainAxisSpacing: 32,
+                      ),
+                      itemBuilder: (context, index) {
+                        final imageItem = viewModel.imageItems[index];
+                        return ImageItemWidget(imageItem: imageItem);
+                      },
                     ),
+                  );
+                },
+              ),
             ],
           ),
         ),
