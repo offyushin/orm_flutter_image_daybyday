@@ -43,6 +43,7 @@ dependencies:
   go_router: ^13.0.0
   freezed: ^2.4.6
   json_annotation: ^4.8.1
+  either_dart: ^1.0.0
 
 dev_dependencies:
   flutter_test:
