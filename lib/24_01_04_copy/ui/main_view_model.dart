@@ -41,7 +41,7 @@ final class MainViewModel extends ChangeNotifier {
           isLoading: false,
         );
         notifyListeners();
-        _evnetController.add(MainEvent.showSnackBar(result.e.toString()));
+        _evnetController.add(MainEvent.showSnackBar('실패다!'));
       case Loading<List<ImageItem>>():
     }
   }
